@@ -13,8 +13,18 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
-$app = new \Slim\App($settings);
+$config = [
+    'settings' => [
+        'displayErrorDetails' => true,
+
+        'logger' => [
+            'name' => 'slim-app',
+            'level' => Monolog\Logger::DEBUG,
+            'path' => __DIR__ . '/../logs/app.log',
+        ],
+    ],
+];
+$app = new \Slim\App($config);
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
