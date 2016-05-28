@@ -1,0 +1,46 @@
+header {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+header img {
+    float: left;
+    padding: 8px 2px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    float: left;
+}
+
+li:last-child, li:nth-last-child(4){
+    float: right;
+}
+
+a {
+    display: block;
+    padding: 8px;
+}
+
+a:link, a:visited {
+    color: white;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: lightseagreen;
+}
+body {
+    margin-top: 75px;
+}

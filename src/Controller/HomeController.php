@@ -29,7 +29,7 @@ class HomeController {
         $app = $this->app;      
         HelperController::getView($app);
 
-        $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home'));
+        $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'TippTopf'));
     }
 
 }
