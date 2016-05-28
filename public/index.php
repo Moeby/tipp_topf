@@ -25,6 +25,7 @@ $config = [
     ],
 ];
 $app = new \Slim\App($config);
+    $container = $app->getContainer();
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';

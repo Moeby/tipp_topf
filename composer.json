@@ -1,7 +1,15 @@
 {
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
     "require": {
         "monolog/monolog": "^1.19",
         "slim/slim": "^3.0",
-        "twig/twig": "^1.24"
-    }
+        "twig/twig": "^1.24",
+        "slim/twig-view": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "tippTopf\\": ""
+        }
+    }	
 }
