@@ -1,15 +1,23 @@
 <?php
     use tippTopf\src\Controller\HomeController;
+    use tippTopf\src\Controller\SignUpController;
     spl_autoload_extensions(".php"); // comma-separated list
     spl_autoload_register();
-
+    
 $container = $app->getContainer();
 $app->get('/', 'HomeController:showHome');
+$app->get('/signup', 'SignUpController:signUp');
+
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);
     return $x;
 };
+$container['SignUpController'] = function ($container)  use ($app) {
+    $x = new \tippTopf\src\Controller\SignUpController($app);
+    return $x;
+};
+
 
 $app->run();
 

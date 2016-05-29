@@ -9,9 +9,8 @@ use Psr\Http\Message\ResponseInterface;
  * 
  */
 class HomeController {
-
+    
     private $app;
-
     /**
     /* set app variable
      * @param type $container
@@ -25,10 +24,9 @@ class HomeController {
      * return view
      */
     public function showHome(ServerRequestInterface $request, ResponseInterface $response) {
-
         $app = $this->app;      
         HelperController::getView($app);
-
+       
         $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'TippTopf'));
     }
 
