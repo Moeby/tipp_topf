@@ -7,6 +7,9 @@
 $container = $app->getContainer();
 $app->get('/', 'HomeController:showHome');
 $app->get('/signup', 'SignUpController:signUp');
+$app->get('/login', 'LoginController:login');
+$app->get('/groups', 'GroupController:groupAction');
+$app->post('/login', 'LoginController:checkLogin');
 $app->post('/signup', 'SignUpController:signUp');
 
 
@@ -18,7 +21,14 @@ $container['SignUpController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\SignUpController($app);
     return $x;
 };
-
+$container['LoginController'] = function ($container)  use ($app) {
+    $x = new \tippTopf\src\Controller\LoginController($app);
+    return $x;
+};
+$container['GroupController'] = function ($container)  use ($app) {
+    $x = new \tippTopf\src\Controller\GroupController($app);
+    return $x;
+};
 
 $app->run();
 
