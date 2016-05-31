@@ -7,6 +7,7 @@
 $container = $app->getContainer();
 $app->get('/', 'HomeController:showHome');
 $app->get('/signup', 'SignUpController:signUp');
+$app->post('/signup', 'SignUpController:signUp');
 
 
 $container['HomeController'] = function ($container)  use ($app) {

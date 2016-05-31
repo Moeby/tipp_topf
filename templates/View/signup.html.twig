@@ -11,17 +11,17 @@
 
 {% block content %}
     {{ parent() }}
-     <form action="action_page.php">
+     <form action="/signup" method="POST">
         <label>Email Address:</label>
-        <input type="text" name="email" ><br>
+        <input type="email" name="email" required><br>
         <label>Username:</label>
-        <input type="text" name="username" ><br>
+        <input type="text" name="username" required><br>
         <label>Password:</label>
-        <input type="password" name="password" ><br>
-        <label>Repeat password:</label>
-        <input type="password" name="password_2" ><br>
+        <input id="password" name="password" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required><br>
+        <label>Confirm password:</label>
+        <input id="password_two" name="password_two" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required><br>
         <label>18 years or older:</label>
-        <input type="radio" name="age" value="true" checked> yes
+        <input type="radio" name="age" value="true" checked required> yes
         <input type="radio" name="age" value="false"> no<br><br>
         <input type="submit" value="Sign Up Now">
       </form> 
