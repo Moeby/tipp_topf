@@ -26,7 +26,7 @@ class LoginController {
      */
     public function login(ServerRequestInterface $request, ResponseInterface $response) {
         $app = $this->app;
-        HelperController::getView($app);
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
 
         $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login'));
     }
@@ -39,8 +39,6 @@ class LoginController {
      */
     public function checkLogin(ServerRequestInterface $request, ResponseInterface $response) {
         $app = $this->app;
-        HelperController::getView($app);
-
         $db = HelperController::getConnection();
 
         // search for user
@@ -59,8 +57,10 @@ class LoginController {
             if ($pw_match){
                     $_SESSION['loggedin'] = true;
                     $_SESSION['username'] = $username;
+                 
+                $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
+                    
             }
-            
             $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'Home'));
 
         } else {

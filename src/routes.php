@@ -12,6 +12,7 @@ $app->get('/groups', 'GroupController:groupAction');
 $app->post('/login', 'LoginController:checkLogin');
 $app->post('/signup', 'SignUpController:signUp');
 
+$app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);

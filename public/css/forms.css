@@ -1,4 +1,4 @@
-input[type=button], input[type=submit], input[type=reset] {
+/*input[type=button], input[type=submit], input[type=reset] {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -15,7 +15,7 @@ label{
     clear: left;
     width: 170px;
     text-align: right;
-}
+}*/
 /*input {
   display: inline-block;
   float: left;

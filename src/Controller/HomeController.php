@@ -25,8 +25,8 @@ class HomeController {
      */
     public function showHome(ServerRequestInterface $request, ResponseInterface $response) {
         $app = $this->app;      
-        HelperController::getView($app);
-       
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
+        
         $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'TippTopf'));
     }
 

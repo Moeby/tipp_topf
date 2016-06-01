@@ -1,4 +1,5 @@
 <?php
+
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
@@ -16,7 +17,6 @@ session_start();
 $config = [
     'settings' => [
         'displayErrorDetails' => true,
-
         'logger' => [
             'name' => 'slim-app',
             'level' => Monolog\Logger::DEBUG,
@@ -25,7 +25,23 @@ $config = [
     ],
 ];
 $app = new \Slim\App($config);
-    $container = $app->getContainer();
+$container = $app->getContainer();
+
+// Register component on container
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig('templates/View/', [
+        'cache' => false
+    ]);
+    $view->addExtension(new \Slim\Views\TwigExtension(
+            $container['router'], $container['request']->getUri()
+    ));
+    return $view;
+};
+
+$logged_in = array('loggedin' => 'false', 'username' => '');
+
+$app->getContainer()['view']->getEnvironment()->addGlobal('session', $logged_in);
+$view = $app->getContainer()['view']; 
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';

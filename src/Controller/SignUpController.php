@@ -24,7 +24,7 @@ class SignUpController {
      */
     public function signUp(ServerRequestInterface $request, ResponseInterface $response) {
         $app = $this->app;      
-        HelperController::getView($app);
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
               
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = HelperController::getConnection();

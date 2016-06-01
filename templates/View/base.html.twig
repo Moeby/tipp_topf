@@ -17,17 +17,26 @@
             {% endblock %}
         </head>
         <header>
-            {% block header %}
+        <header>
+            {% block header %} 
                 <img src="files/logo_placeholder.png" alt="Logo">
-                 <ul>
+                <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/signup">Sign Up</a></li>
                     <li><a href="/overview">Overview</a></li>
                     <li><a href="/groups">Groups</a></li>
-                    <li><a href="/login">Login</a></li>
-                  </ul> 
+                </ul> 
+                {% if  session is defined and session.loggedin %}
+                    <ul id="usermgmt">
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <ul id="usermgmt">
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/login">Login</a></li>
+                    </ul> 
+                {% endif %}
             {% endblock %}
-        </header
+        </header>
         <body>
             <div id="content">
                 {% block content %}
