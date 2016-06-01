@@ -68,4 +68,14 @@ class LoginController {
         }
     }
 
+    public function logout(ServerRequestInterface $request, ResponseInterface $response){
+        session_start();
+        
+        $app = $this->app;
+        
+        $_SESSION['loggedin'] = false;
+        $_SESSION['username'] = '';
+        
+        $app->getContainer()['view']->render($response, 'logout.html.twig', array('title' => 'Home', 'page_title' => "You've been logged out. We hope to welcome you back soon!"));
+    }
 }

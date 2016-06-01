@@ -8,11 +8,10 @@ $container = $app->getContainer();
 $app->get('/', 'HomeController:showHome');
 $app->get('/signup', 'SignUpController:signUp');
 $app->get('/login', 'LoginController:login');
+$app->get('/logout', 'LoginController:logout');
 $app->get('/groups', 'GroupController:groupAction');
 $app->post('/login', 'LoginController:checkLogin');
 $app->post('/signup', 'SignUpController:signUp');
-
-$app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);
@@ -32,13 +31,3 @@ $container['GroupController'] = function ($container)  use ($app) {
 };
 
 $app->run();
-
-// if only html needs to be rendered use the method below:
-
-//$app->get('/[{name}]', function ($request, $response, $args) {
-//    // Sample log message
-//    $this->logger->info("Slim-Skeleton '/' route");
-//
-//    // Render index view
-//    return $this->renderer->render($response, 'index.phtml', $args);
-//});
