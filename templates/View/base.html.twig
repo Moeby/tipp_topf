@@ -11,9 +11,10 @@
                 <title>{% block title %}{% endblock %} - TippTopf</title>
             {% endblock %}
         </head>
-        <header>
+        <header id='header'>
             {% block header %} 
-                <img src="files/logo_placeholder.png" alt="Logo">
+                <nav id='nav'>
+{#                <img src="files/logo_placeholder.png" alt="Logo">#}
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/overview">Overview</a></li>
@@ -23,11 +24,13 @@
                     <ul id="usermgmt">
                         <li><a href="/logout">Logout</a></li>
                     </ul>
+                </nav>
                 {% else %}
                     <ul id="usermgmt">
                         <li><a href="/signup">Sign Up</a></li>
                         <li><a href="/login">Login</a></li>
                     </ul> 
+                </nav>
                 {% endif %}
             {% endblock %}
         </header>
