@@ -30,9 +30,26 @@ class GroupController {
         
         //check if user is logged in
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            $app->getContainer()['view']->render($response, 'groups.html.twig', array('title' => 'Group', 'page_title' => 'Group'));
+            $db = HelperController::getConnection();
+            
+
+            $user_id = HelperController::getLoggedInUserId();
+            
+            // search if group already exists
+            $sql = "SELECT * FROM mydb.user_has_group WHERE user_has_group.user_id = :user_id";
+            
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            
+            if (!empty($result)){
+               $app->getContainer()['view']->render($response, 'groups.html.twig', array('title' => 'Group', 'page_title' => 'Group')); 
+            } else {
+                $app->getContainer()['view']->render($response, 'newGroup.html.twig', array('title' => 'New Group', 'page_title' => 'Create New Group')); 
+            }
         } else {
-            $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced <br> Please Log in to view this page"));
+            $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
     }
 

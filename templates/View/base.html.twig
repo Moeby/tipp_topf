@@ -3,6 +3,8 @@
     <div id="whole">
         <head>
             {% block head %}
+                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script type="text/javascript" src="js/materialize.min.js"></script>
                 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
                 <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
                 <!--Let browser know website is optimized for mobile-->
@@ -14,10 +16,9 @@
         <header id='header'>
             {% block header %} 
                 <nav id='nav'>
-{#                <img src="files/logo_placeholder.png" alt="Logo">#}
                 <ul>
+                    <li><img src="files/logo_placeholder.png" alt="Logo"></li>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/overview">Overview</a></li>
                     <li><a href="/groups">Groups</a></li>
                 </ul> 
                 {% if  session is defined and session.loggedin %}
@@ -37,17 +38,13 @@
         <body>
             <div id="content">
                 {% block content %}
-                    <h2> {{ page_title }} </h2>
+                    <h3> {{ page_title |nl2br }} </h3>
                 {% endblock %}</div>
             <div id="footer">
                 {% block footer %}
 
                 {% endblock %}
             </div>
-
-            <!--Import jQuery before materialize.js-->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-            <script type="text/javascript" src="js/materialize.min.js"></script>
         </body>
     </div>
 </html>

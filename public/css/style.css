@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display);
+
 header {
     margin: 0;
     padding: 0;
@@ -19,9 +21,10 @@ ul {
 
 li {
     float: left;
+    font-family: 'Playfair Display', serif;
 }
 
-ul #usermgmt{
+#usermgmt{
     float: right;
 }
 
@@ -32,7 +35,7 @@ a {
 
 a:link, a:visited {
     color: white;
-    padding: 5px 25px;
+    padding: 0px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -42,9 +45,18 @@ a:hover, a:active {
     background-color: lightseagreen;
 }
 body {
-    margin-top: 75px;
+    margin-top: 120px;
 }
 
 #nav {
     background-color: maroon;
+}
+
+h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+#content {
+    padding-left: 25px;
+    padding-right: 25px;
 }
