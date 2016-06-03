@@ -11,9 +11,9 @@
 
 {% block content %}
     {{ parent() }}
-    <form action="/group" method="POST">
+    <form action="/newgroup" method="POST">
         <label>Group Name:</label>
-        <input type="text" name="name" required><br>
+        <input type="text" name="name" maxlength="100" required><br>
         <p id='link'> +invite people </p>
         <input type="submit" value="Create">
     </form> 

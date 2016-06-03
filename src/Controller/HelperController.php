@@ -30,6 +30,24 @@ class HelperController {
 
             return $result[0]["id"];
     }
+    
+     /**
+     * get id of group by owner
+     * 
+     * @return int $user_id
+     */
+    public static function getGroupId($user_id){
+        
+            $db = HelperController::getConnection();
+            $sql = "SELECT group.id FROM mydb.group WHERE group.owner = :user_id";
+            
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            return $result[0]["id"];
+    }
 }
 
 
