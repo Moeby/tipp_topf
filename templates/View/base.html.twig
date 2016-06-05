@@ -24,7 +24,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/groups">Groups</a></li>
                     <script type="text/javascript" src="js/api.js"></script>
-                </ul> 
+                </ul>
                 {% if  session is defined and session.loggedin %}
                     <ul id="usermgmt">
                         <li><a href="/logout">Logout</a></li>
@@ -34,7 +34,7 @@
                     <ul id="usermgmt">
                         <li><a href="/signup">Sign Up</a></li>
                         <li><a href="/login">Login</a></li>
-                    </ul> 
+                    </ul>
                 </nav>
                 {% endif %}
             {% endblock %}
@@ -47,6 +47,23 @@
             </div>
             <div id="footer">
                 {% block footer %}
+
+                    <footer class="page-footer grey lighten-1">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col l3 s12">
+                                    <ul>
+                                        <li><a class="white-text" href="#!">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-copyright">
+                            <div class="container">
+                                <a class="grey-text text-lighten-2" href="http://www.fhnw.ch">Tatyana & Elena</a>
+                            </div>
+                        </div>
+                    </footer>
 
                 {% endblock %}
             </div>
