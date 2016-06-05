@@ -2,6 +2,9 @@
  * Created by elena on 04.06.16.
  */
 
+var url = 'http://api.football-data.org/v1/soccerseasons/424/fixtures';
+
+var QUERY_NAME = 'http://api.football-data.org/v1/soccerseasons/424/fixtures?matchday=';
 var QUERY_PHASE_1 = 'http://api.football-data.org/v1/soccerseasons/424/fixtures?matchday=1';
 var QUERY_PHASE_2 = 'http://api.football-data.org/v1/soccerseasons/424/fixtures?matchday=2';
 var QUERY_PHASE_3 = 'http://api.football-data.org/v1/soccerseasons/424/fixtures?matchday=3';
@@ -23,11 +26,14 @@ $(document).ready(function() {
 
     $.ajax({
         headers: { 'X-Auth-Token': '0870114276c34fe8b08a5d426955bf01' },
-        url: 'http://api.football-data.org/v1/soccerseasons/424/fixtures',
+        url: url,
         dataType: 'json',
         type: 'GET',
         success: function (data) {
-            console.log(data);
+            $.each(data.fixtures, function (i, item) {
+                $("#matchday-results").html(data.fixtures[i].homeTeamName, data.fixtures[i].awayTeamName);
+                console.log(data.fixtures[i].homeTeamName, data.fixtures[i].awayTeamName);
+            });
         },
         error: function (xhr, status) {
             alert("error");
