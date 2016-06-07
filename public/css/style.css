@@ -10,11 +10,6 @@ header {
     width: 100%;
 }
 
-/*header img {
-    float: left;
-    padding: 8px 2px;
-}*/
-
 ul {
     list-style-type: none;
 }
@@ -41,8 +36,9 @@ a:link, a:visited {
     display: inline-block;
 }
 
-a:hover, a:active {
-    background-color: lightseagreen;
+a:hover, a:active > .overlay{
+    background-color:#000;
+    opacity:0.2;
 }
 body {
     margin-top: 120px;
@@ -54,13 +50,36 @@ body {
 
 h3 {
     font-family: 'Playfair Display', serif;
-}
-
-#content {
     padding-left: 25px;
-    padding-right: 25px;
 }
 
 footer {
     font-family: 'Playfair Display', serif;
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    background:#999;
+    background-color: maroon !important;
+    text-align: end;
+    font-size: 13px;
+}
+
+footer a {
+    text-align: center;
+    display: block !important;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+a#a-top.white-text {
+    padding-top: 4px;
+}
+footer#top {
+    bottom:20px !important;
+}
+footer#bottom {
+    height:20px;
+    background-color: #333 !important;
 }

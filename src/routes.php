@@ -6,6 +6,7 @@
     
 $container = $app->getContainer();
 $app->get('/', 'HomeController:showHome');
+$app->get('/contact', 'HomeController:showContact');
 $app->get('/signup', 'SignUpController:signUp');
 $app->get('/login', 'LoginController:login');
 $app->get('/logout', 'LoginController:logout');
