@@ -90,7 +90,30 @@ h3, h5 {
     text-decoration: underline;
 }
 
-#a_title:hover{
+#a_title:hover {
     background-color: transparent !important;
     opacity:1;
+}
+footer#bottom a.white-text {
+    padding-top: 0px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:first-child td {
+     font-weight: bold;
+}
+
+td button,  td button:focus{
+    border:none;
+    background-color: transparent;
+}
+
+#group_id {
+    height:0px !important;
+    font-size: 0px !important;
 }

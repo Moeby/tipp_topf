@@ -20,10 +20,9 @@
             {% block header %} 
                 <nav id='nav'>
                 <ul>
-                    <li><img src="files/tipptopf.png" alt="Logo"></li>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/"><img src="files/tipptopf.png" alt="Logo"></a></li>
                     <li><a href="/groups">Add Group</a></li>
-                    <li><a href="/overview">Groups Overview</a></li>
+                    <li><a href="/overview">Overview</a></li>
                 </ul>
                 {% if  session is defined and session.loggedin %}
                     <ul id="usermgmt">

@@ -11,6 +11,7 @@ $app->get('/signup', 'SignUpController:signUp');
 $app->get('/login', 'LoginController:login');
 $app->get('/logout', 'LoginController:logout');
 $app->get('/groups', 'GroupController:groupAction');
+$app->post('/showgroup', 'GroupController:showGroup');
 $app->get('/overview', 'GroupController:showOverview');
 $app->post('/newgroup', 'GroupController:addGroup');
 $app->post('/login', 'LoginController:checkLogin');
