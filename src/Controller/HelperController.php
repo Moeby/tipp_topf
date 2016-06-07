@@ -52,12 +52,13 @@ class HelperController {
      * 
      * @return int $user_id
      */
-    public static function getGroupId($user_id){
+    public static function getGroupId($user_id, $name){
             $db = HelperController::getConnection();
-            $sql = "SELECT group.id FROM mydb.group WHERE group.owner = :user_id";
+            $sql = "SELECT group.id FROM mydb.group WHERE group.owner = :user_id AND group.name = :name";
             
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':name', $name);
             $stmt->execute();
             $result = $stmt->fetchAll();
 

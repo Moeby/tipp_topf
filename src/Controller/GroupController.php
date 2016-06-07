@@ -31,24 +31,7 @@ class GroupController {
 
         //check if user is logged in
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            $db = HelperController::getConnection();
-
-
-            $user_id = HelperController::getLoggedInUserId();
-
-            // search if group already exists
-            $sql = "SELECT * FROM mydb.user_has_group WHERE user_has_group.user_id = :user_id";
-
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-
-            if (!empty($result)) {
-                $app->getContainer()['view']->render($response, 'groups.html.twig', array('title' => 'Group', 'page_title' => 'Group'));
-            } else {
                 $app->getContainer()['view']->render($response, 'newGroup.html.twig', array('title' => 'New Group', 'page_title' => 'Create New Group'));
-            }
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
@@ -84,13 +67,22 @@ class GroupController {
             $stmt->bindParam(':user_id', $user_id);
             $stmt->execute();
 
-            $group_id = HelperController::getGroupId($user_id);
+            $group_id = HelperController::getGroupId($user_id, $_POST['name']);
             unset($_POST['name']);
 
             //add invitations
             foreach ($_POST as $invitation) {
                 $this->addInvitation($db, $invitation, $group_id);
             }
+            
+            //add into user_has_group table
+            $sql = "INSERT INTO `user_has_group`(`user_id`, `group_id`) VALUES (:user_id, :group_id)";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':group_id', $group_id);
+            $stmt->execute();
+            
             $app->getContainer()['view']->render($response, 'groups.html.twig', array('title' => 'Group', 'page_title' => 'Group'));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'ERROR', 'page_title' => ">Group couldn't be created \r\n Please use a different name, the one you tried already exists"));
@@ -156,5 +148,32 @@ class GroupController {
 //
 //        $result = $mailer->send($message);
 //    }
+    
+    
+    public function showOverview(ServerRequestInterface $request, ResponseInterface $response) {
+            $app = $this->app;
+            $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
+            
+            $db = HelperController::getConnection();
+            $user_id = HelperController::getLoggedInUserId();
+
+        //check if user is logged in
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            
+             // search if group already exists
+            $sql = "SELECT * FROM mydb.user_has_group WHERE user_has_group.user_id = :user_id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+   
+            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Groups', 'page_title' => 'Group Overview', 'groups' => $result));
+        } else {
+            $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
+        }
+
+
+    }
 
 }

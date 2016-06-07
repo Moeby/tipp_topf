@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %} 
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="container" id="contentPart-home">
+        {% block main %}
+            {% if groups is defined and groups is not empty %}
+               <div style="overflow-x:auto;">
+                    <table style="width:100%">
+                     <tr>
+                       <td>Group Name</td>
+                       <td>Owner</td>
+                       <td></td>
+                     </tr>
+                     <tr>
+                       <td>Eve</td>
+                       <td>Jackson</td>
+                       <td>94</td>
+                     </tr>
+                     <tr>
+                       <td>John</td>
+                       <td>Doe</td>
+                       <td>80</td>
+                     </tr>
+                   </table> 
+                </div>
+            {% else %}
+                <h5>You don't belong to a group yet, if you want to create one click <a id="a_title" href="/groups">here</a></h5>
+                
+            {% endif %}
+            
+
+        {% endblock %}
+    </div>
+{% endblock %}

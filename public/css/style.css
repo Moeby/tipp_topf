@@ -29,9 +29,9 @@ a {
 }
 
 a:link, a:visited {
-    color: white;
+/*  color: white;
     padding: 0px 20px;
-    text-align: center;
+    text-align: center;*/
     text-decoration: none;
     display: inline-block;
 }
@@ -48,11 +48,6 @@ body {
     background-color: maroon;
 }
 
-h3 {
-    font-family: 'Playfair Display', serif;
-    padding-left: 25px;
-}
-
 footer {
     font-family: 'Playfair Display', serif;
     position:fixed;
@@ -61,7 +56,7 @@ footer {
     height:30px;
     width:100%;
     background:#999;
-    background-color: maroon !important;
+    background-color: #333 !important;
     text-align: end;
     font-size: 13px;
 }
@@ -73,13 +68,29 @@ footer a {
     margin-right:auto;
 }
 
-a#a-top.white-text {
+a.white-text {
     padding-top: 4px;
 }
 footer#top {
     bottom:20px !important;
 }
-footer#bottom {
+footer#bottom{
     height:20px;
-    background-color: #333 !important;
+    background-color: maroon !important;
+    }
+    
+h3, h5 {
+    font-family: 'Playfair Display', serif;
+}
+
+#a_title {
+    color: black !important;
+    padding: 0px;   
+    font-family: 'Playfair Display', serif;
+    text-decoration: underline;
+}
+
+#a_title:hover{
+    background-color: transparent !important;
+    opacity:1;
 }
