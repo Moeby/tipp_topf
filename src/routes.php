@@ -16,6 +16,7 @@ $app->get('/overview', 'GroupController:showOverview');
 $app->post('/newgroup', 'GroupController:addGroup');
 $app->post('/login', 'LoginController:checkLogin');
 $app->post('/signup', 'SignUpController:signUp');
+$app->post('/results', 'GameController:getResults');
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);
@@ -31,6 +32,10 @@ $container['LoginController'] = function ($container)  use ($app) {
 };
 $container['GroupController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\GroupController($app);
+    return $x;
+};
+$container['GameController'] = function ($container)  use ($app) {
+    $x = new \tippTopf\src\Controller\GameController($app);
     return $x;
 };
 

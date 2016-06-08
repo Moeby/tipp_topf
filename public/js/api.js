@@ -23,7 +23,8 @@ var QUERY_PHASE_7 = 'http://api.football-data.org/v1/soccerseasons/424/fixtures?
  */
 
 $(document).ready(function() {
-
+    var matches; 
+    
     $.ajax({
         headers: { 'X-Auth-Token': '0870114276c34fe8b08a5d426955bf01' },
         url: url,
@@ -31,13 +32,23 @@ $(document).ready(function() {
         type: 'GET',
         success: function (data) {
             $.each(data.fixtures, function (i, item) {
+                matches = data.fixtures;
                 $("#matchday-results").html(data.fixtures[i].homeTeamName, data.fixtures[i].awayTeamName);
                 console.log(data.fixtures[i].homeTeamName, data.fixtures[i].awayTeamName);
+                sendData(matches);
             });
         },
         error: function (xhr, status) {
             alert("error");
         }
     });
+    setTimeout(
+        function sendData(){
+            $.post( "/results", { data: matches} )
+              .done(function( data ) {
+                alert( "Data Loaded: " + data );
+              }); 
+        }, 5000, matches);
+    
 
-} );
+});

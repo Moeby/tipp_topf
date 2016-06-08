@@ -100,14 +100,14 @@ footer#bottom a.white-text {
 th, td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #b7b7b7;
 }
 
 tr:first-child td {
      font-weight: bold;
 }
 
-td button,  td button:focus{
+td button, td button:focus{
     border:none;
     background-color: transparent;
 }
