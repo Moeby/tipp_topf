@@ -13,7 +13,7 @@ class GroupController {
     private $app;
 
     /**
-    /* set app variable
+      /* set app variable
      * @param type $container
      */
     public function __construct($container) {
@@ -31,7 +31,7 @@ class GroupController {
 
         //check if user is logged in
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-                $app->getContainer()['view']->render($response, 'newGroup.html.twig', array('title' => 'New Group', 'page_title' => 'Create New Group'));
+            $app->getContainer()['view']->render($response, 'newGroup.html.twig', array('title' => 'New Group', 'page_title' => 'Create New Group'));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
@@ -74,7 +74,7 @@ class GroupController {
             foreach ($_POST as $invitation) {
                 $this->addInvitation($db, $invitation, $group_id);
             }
-            
+
             //add into user_has_group table
             $sql = "INSERT INTO `user_has_group`(`user_id`, `group_id`) VALUES (:user_id, :group_id)";
 
@@ -82,7 +82,7 @@ class GroupController {
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':group_id', $group_id);
             $stmt->execute();
-            
+
             $app->getContainer()['view']->render($response, 'groups.html.twig', array('title' => 'Group', 'page_title' => 'Group'));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'ERROR', 'page_title' => ">Group couldn't be created \r\n Please use a different name, the one you tried already exists"));
@@ -112,7 +112,7 @@ class GroupController {
             $stmt->bindParam(':group_id', $group_id);
             $stmt->bindParam(':email', $invitation);
             $stmt->execute();
-            
+
 //            $this->sendInvitation($invitation);
         }
     }
@@ -148,32 +148,78 @@ class GroupController {
 //
 //        $result = $mailer->send($message);
 //    }
-    
-    
+
+
+    /**
+     * look up groups that user belongs to and render corresponding twig file
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
     public function showOverview(ServerRequestInterface $request, ResponseInterface $response) {
-            $app = $this->app;
-            $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
-            
-            $db = HelperController::getConnection();
-            $user_id = HelperController::getLoggedInUserId();
+        $app = $this->app;
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
+
+        $db = HelperController::getConnection();
+        $user_id = HelperController::getLoggedInUserId();
 
         //check if user is logged in
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            
-             // search if group already exists
+
+            // search if groups exists for user
             $sql = "SELECT * FROM mydb.user_has_group WHERE user_has_group.user_id = :user_id";
 
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':user_id', $user_id);
             $stmt->execute();
             $result = $stmt->fetchAll();
-   
-            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Groups', 'page_title' => 'Group Overview', 'groups' => $result));
+
+            $groups = array();
+
+            // fill group array with necessary inf
+            foreach ($result as $rel) {
+                $group_obj = HelperController::getGroup($rel["group_id"]);
+                $groups[]["name"] = $group_obj["name"];
+
+                $user = HelperController::getUser($group_obj["owner"]);
+                $last_key = end(array_keys($groups));
+                $groups[$last_key]["id"] = $group_obj["id"];
+                $groups[$last_key]["owner"] = $user["username"];
+            }
+            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Groups', 'page_title' => 'Groups Overview', 'groups' => $groups));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
+    }
+    
+    public function showGroup(ServerRequestInterface $request, ResponseInterface $response){
+        $app = $this->app;
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
 
+        $db = HelperController::getConnection();
+        $group_id = $_POST["id"]; 
+        $user_id = HelperController::getLoggedInUserId();
+        
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            //security check if logged in user belongs to group
+            $sql = "SELECT * FROM mydb.user_has_group WHERE user_has_group.user_id = :user_id AND user_has_group.group_id = :group_id";
 
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':group_id', $group_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            
+            if (!empty($result)){
+                $group = HelperController::getGroup($group_id); 
+                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group));
+            } else {
+                $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
+            }
+            
+        } else {
+            $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
+        }
     }
 
 }

@@ -12,68 +12,6 @@
     {{ parent() }}
     <div class="container" id="contentPart-home">
         {% block main %}
-            <div class="description">
-                <h5>European Championships France 2016</h5>
-                <h4>My Group's Name</h4>
-                <h6>Created by Username | Nr of Groupmembers</h6>
-            </div>
-            <div class="tabinfo">
-                Add your tipps in the table below!
-            </div>
-
-            <div class="row smoke">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="tab col s3" data-group-id="phase-1"><a>Gruppenspiel 1</a></li>
-                    <li class="tab col s3" data-group-id="phase-2"><a>Gruppenspiel 2</a></li>
-                    <li class="tab col s3" data-group-id="phase-3"><a>Gruppenspiel 3</a></li>
-                    <li class="tab col s3" data-group-id="phase-4"><a>Achtelfinale</a></li>
-                    <li class="tab col s3" data-group-id="phase-5"><a>Viertelfinale</a></li>
-                    <li class="tab col s3" data-group-id="phase-6"><a>Halbfinale</a></li>
-                    <li class="tab col s3" data-group-id="phase-7"><a>Endspiel</a></li>
-                </ul>
-            </div>
-
-            <section id="selected-matchday">
-                <table id="phase-1" class="group-matches active highlight">
-                    <thead>
-                    <tr>
-                        <th data-field="date">Date</th>
-                        <th data-field="homeTeamName"></th>
-                        <th data-field="goalsHomeTeam"></th>
-                        <th class="versus"></th>
-                        <th data-field="goalsAwayTeam"></th>
-                        <th data-field="awayTeamName"></th>
-                        <th data-field="status">Status</th>
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <th class="align-left" colspan="8">Matchday 1</th>
-                    </tr>
-                    <!-- Diese Reihe ist ein Prototyp und wird nachher dynamsich durch jQuery erzeugt -->
-                    <tr class="match">
-                        <td class="date">10.06.2016 21:00</td>
-                        <td class="homeTeamName">France</td>
-                        <td class="goalsHomeTeam"></td>
-                        <td class="versus"> : </td>
-                        <td class="goalsAwayTeam"></td>
-                        <td class="awayTeamName">Romania</td>
-                        <td><button id="tipp">Submit</button></td>
-                    </tr>
-                </table>
-            </section>
-
-            <section id="result">
-                <button id="refresh">
-                    <i class="fa fa-refresh"></i>
-                </button>
-                <table>
-                    <!-- Hier fügt jQuery dynamisch Rows hinzu. -->
-                </table>
-            </section>
-
         {% endblock %}
     </div>
 {% endblock %}

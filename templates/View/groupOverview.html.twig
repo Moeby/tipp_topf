@@ -25,7 +25,7 @@
                             <td>{{ group.name|e }}</td>
                             <td>{{ group.owner|e }}</td>
                             <td>
-                                <form action="/showgroup">
+                                <form action="/showgroup" method="POST">
                                     <input id="group_id" type="hidden" name="id" value="{{group.id}}">
                                     <button id="{{group.id}}" type="submit" ><img src="files/open.png" height="26px"/></button></td>
                               </form> 
