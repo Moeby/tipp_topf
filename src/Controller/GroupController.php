@@ -211,8 +211,11 @@ class GroupController {
             $result = $stmt->fetchAll();
             
             if (!empty($result)){
+                $members = HelperController::getGroupMembers($group_id);
+                $member_count = count($members);
                 $group = HelperController::getGroup($group_id); 
-                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group));
+                $owner = HelperController::getUser($group["owner"])["username"];
+                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count));
             } else {
                 $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
             }

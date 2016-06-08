@@ -99,5 +99,22 @@ class HelperController {
 
         return $result[0];
     }
+    
+    public function getGroupMembers($group_id){
+        $members = array();
+        $db = HelperController::getConnection();
+        $sql = "SELECT user_has_group.user_id FROM mydb.user_has_group WHERE user_has_group.group_id = :group_id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':group_id', $group_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        
+        foreach ($result as $user){
+            $group_member = HelperController::getUser($user["user_id"]);
+            $members[]["username"] = $group_member["username"];
+        }
+        return $members;
+    }
 
 }
