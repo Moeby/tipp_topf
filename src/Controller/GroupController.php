@@ -192,6 +192,12 @@ class GroupController {
         }
     }
     
+    /**
+     * show single group
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
     public function showGroup(ServerRequestInterface $request, ResponseInterface $response){
         $app = $this->app;
         $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
@@ -211,11 +217,13 @@ class GroupController {
             $result = $stmt->fetchAll();
             
             if (!empty($result)){
+                $games = HelperController::getGames();
                 $members = HelperController::getGroupMembers($group_id);
                 $member_count = count($members);
                 $group = HelperController::getGroup($group_id); 
                 $owner = HelperController::getUser($group["owner"])["username"];
-                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count));
+                
+                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count, 'games' => $games));
             } else {
                 $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
             }

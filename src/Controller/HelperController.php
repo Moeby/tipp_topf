@@ -116,5 +116,64 @@ class HelperController {
         }
         return $members;
     }
+    
+    /**
+     * get group name
+     * 
+     * @param Int $id
+     * @return string
+     */
+    public function getTeamName($id){
+        $db = HelperController::getConnection();
+        $sql = "SELECT team.name FROM mydb.team WHERE team.id=:id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        
+        return $result["name"];
+    }
+    
+     /**
+     * get games with team flags
+     * 
+     * @return array $result
+     */
+    public static function getGames() {
+        $db = HelperController::getConnection();
+        $sql = "SELECT * FROM mydb.game";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        
+        foreach ($result as $key => $game){
+            $id_team1 = $game["team_id1"];
+            $id_team2 = $game["team_id2"];
+            
+            //get flag for team 1
+            $sql = "SELECT team.flag FROM mydb.team WHERE team.id=:id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id_team1);
+            $stmt->execute();
+            $result1 = $stmt->fetch();
+            
+            //get flag for team 2
+            $sql = "SELECT team.flag FROM mydb.team WHERE team.id=:id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id_team2);
+            $stmt->execute();
+            $result2 = $stmt->fetch();
+            
+            $result[$key]['flag_1'] = $result1["flag"];
+            $result[$key]['flag_2'] = $result2["flag"];
+            $result[$key]['name_1'] = HelperController::getTeamName($game["team_id1"]);
+            $result[$key]['name_2'] = HelperController::getTeamName($game["team_id2"]);
+        }
+        return $result;
+    }
 
 }

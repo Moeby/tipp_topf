@@ -1,6 +1,6 @@
 <?php
 
-namespace tippTopf\src\Controller; //Acme\src\Controller
+namespace tippTopf\src\Controller; 
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;

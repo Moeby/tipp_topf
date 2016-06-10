@@ -46,7 +46,7 @@ $(document).ready(function() {
         function sendData(){
             $.post( "/results", { data: matches} )
               .done(function( data ) {
-                alert( "Data Loaded: " + data );
+                console.log(data);
               }); 
         }, 5000, matches);
     

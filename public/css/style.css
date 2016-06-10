@@ -103,11 +103,11 @@ th, td {
     border-bottom: 1px solid #b7b7b7;
 }
 
-tr:first-child td {
+#overview tr:first-child td {
      font-weight: bold;
 }
 
-td button, td button:focus{
+#overview td button, td button:focus{
     border:none;
     background-color: transparent;
 }
@@ -116,3 +116,28 @@ td button, td button:focus{
     height:0px !important;
     font-size: 0px !important;
 }
+
+td.homeTeamName {
+    text-align: end; 
+    vertical-align:middle;
+}
+
+td.results img {
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #b7b7b7;
+}
+
+button {
+    background-color: #333; 
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.table_outer { height: 30em; overflow: auto; }
