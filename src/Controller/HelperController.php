@@ -119,6 +119,8 @@ class HelperController {
         foreach ($result as $user){
             $group_member = HelperController::getUser($user["user_id"]);
             $members[]["username"] = $group_member["username"];
+            $lastKey = end(array_keys($members));
+            $members[$lastKey]["id"] = $user["user_id"];
         }
         return $members;
     }
@@ -188,9 +190,13 @@ class HelperController {
      * @param Int $game_id
      * @return array
      */
-    public function getBet($game_id, $group_id){
+    public function getBet($game_id, $group_id, $user_id=null){
         $db = HelperController::getConnection();
-        $user_id = HelperController::getLoggedInUserId();
+        
+        if($user_id === null){
+            $user_id = HelperController::getLoggedInUserId();
+        }
+
         $sql = "SELECT * FROM mydb.bet WHERE bet.game_id=:game_id AND bet.user_has_group_group_id=:group_id AND bet.user_has_group_user_id = :user_id";
         
         $stmt = $db->prepare($sql);
@@ -201,6 +207,48 @@ class HelperController {
         $result = $stmt->fetch();
         
         return $result;
+    }
+    
+    /**
+     * calculate points for specific user in specific group
+     * 
+     * @param Int $group_id
+     * @param Int $user_id
+     * @return int points
+     */
+    public function calculatePoints($group_id, $user_id){
+        $db = HelperController::getConnection();
+        
+        $date_utc_current = new \DateTime(null, new \DateTimeZone("UTC"));    
+        $all_games = HelperController::getGames();
+        $points = 0;
+        
+        foreach ($all_games as $game){
+            $start_date = new \DateTime($game["date"]); 
+            $date_finish = $start_date->add(new \DateInterval('PT3H'));
+            
+            //only calculate results for games that are finished
+            if ($date_utc_current > $date_finish){
+                $result_team_1 = $game["result_team1"];
+                $result_team_2 = $game["result_team2"];
+                
+                $bet = HelperController::getBet($game["id"], $group_id, $user_id);
+                
+                if (!empty($bet)){
+                    $bet_team_1 = $bet["result_team1"];
+                    $bet_team_2 = $bet["result_team2"];
+                    
+                    //check bets against the real results
+                    if (($bet_team_1 === $result_team_1) && ($bet_team_2 === $result_team_2)){
+                        $points += 3;
+                    }
+                    else if ((($result_team_1 < $result_team_2) && ($bet_team_1 < $bet_team_2)) || (($result_team_1 > $result_team_2) && ($bet_team_1 > $bet_team_2)) || (($result_team_1 === $result_team_2) && ($bet_team_1 === $bet_team_2))){
+                        $points++;
+                    } 
+                }
+            }
+        }
+        return $points;
     }
 
 }

@@ -78,7 +78,6 @@ class GameController {
                 $stmt->bindParam(':date', $match['date']);
                 $stmt->bindParam(':matchday', $match['matchday']);
                 $stmt->execute();
-
             } elseif (($start_date < $date_utc_current) && ($start_date <  $date_finish)){
                 
                 $sql="UPDATE `game` SET result_team1=:result_team1, result_team2=:result_team2 WHERE id=:id";

@@ -32,7 +32,8 @@
                             <th data-field="awayTeamName"></th>
                             <th data-field="result"></th>
                             <th data-field="status">Status</th>
-                            <th data-field="Bet">Bet</th>
+                            <th data-field="current">Bet</th>
+                            <th data-field="bet">Add Bet</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                                 <td class="versus"> : </td>
                                 <td class="goalsAwayTeam">{{ game.name_2 }} <td>
                                 <td class="results"><img src="{{ game.flag_1 }}" alt="team_flag" width="30"> ({{ game.result_team1 }}) : ({{ game.result_team2 }}) <img src="{{ game.flag_2 }}" alt="team_flag" width="30"></td>
+                                <td class="current_bet"> {{ game.current_bet }} </td>
                                 <td><button id="{{ game.id }}" onClick="betting(this.id, {{ group.id }})">Add</button></td>
                             </tr>
                         {% endfor %}

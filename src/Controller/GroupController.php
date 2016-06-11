@@ -228,7 +228,25 @@ class GroupController {
                 $member_count = count($members);
                 $group = HelperController::getGroup($group_id); 
                 $owner = HelperController::getUser($group["owner"])["username"];
-
+                
+                foreach ($members as $key => $member){
+                    $points = HelperController::calculatePoints($group_id, $member["id"]);
+                    $members[$key]['points'] = $points;
+                    usort($members, 'sortByPoints');
+                }
+                
+                
+                //add current bets to games array
+                foreach ($games as $key => $game){
+                    $bet = HelperController::getBet($game["id"], $group_id);
+                    if (!empty($bet)){
+                        $current_bet = '('.$bet["result_team1"].') : ('.$bet["result_team2"].')';
+                        $games[$key]['current_bet'] = $current_bet;
+                    } else {
+                        $games[$key]['current_bet'] = "None";
+                    }
+                }
+                
                 $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count, 'games' => $games));
             } else {
                 $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
@@ -237,6 +255,10 @@ class GroupController {
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
+    }
+    
+    function sortByPoints($a, $b) {
+        return $a['points'] - $b['points'];
     }
 
 }
