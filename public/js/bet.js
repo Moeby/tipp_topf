@@ -13,7 +13,7 @@ function betting(clicked_id) {
 function showbettingwindow(game) {
 
     $("#dialog-modal").dialog({
-            width: 300,
+            width: 250,
             height: 200,
             open: function(event, ui)
             {

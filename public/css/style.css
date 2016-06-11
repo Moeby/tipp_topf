@@ -156,14 +156,13 @@ button {
 
 /*dialog box styling*/
 
-div.ui-dialog {
-    background-color: white; 
+div.ui-dialog , #dialog_form{
+    background-color: white ; 
 }
 
 
 .ui-dialog {
     left: 0;
-    outline: 0 none;
     padding: 0 !important;
     position: absolute;
     top: 0;
@@ -190,6 +189,19 @@ div.ui-dialog {
     font-family: 'Playfair Display', serif;
 }
 
-.ui-widget-content {
-    border: 2px solid #DDD;
+#dialog_form {
+    border: 3px solid #333;
+    padding: 8px;
+}
+
+#dialog_form input#submit {
+    background-color: #333; 
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
 }
