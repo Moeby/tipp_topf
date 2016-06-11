@@ -61,7 +61,15 @@
                         {% endfor %}
                 </table>
             </div>
-                <div id="dialog-modal" title="Place Your Bet" style="display: none;"></div>
+                <div id="dialog-modal" title="Place Your Bet" style="display: none;">
+                    <form action="" method="post">
+                    <label id="team1">Team1:</label>
+                    <input id="name" name="team1" type="number" min="0">
+                    <label id="team2">Team2:</label>
+                    <input id="email" name="team2" type="number" min="0">
+                    <input id="submit" type="submit" value="Submit">
+                    </form>
+                </div>
             {#            <section id="result">
                             <button id="refresh">
                                 <i class="fa fa-refresh"></i>

@@ -48,6 +48,8 @@ body {
     background-color: maroon;
 }
 
+/*footer styling*/
+
 footer {
     font-family: 'Playfair Display', serif;
     position:fixed;
@@ -71,12 +73,14 @@ footer a {
 a.white-text {
     padding-top: 4px;
 }
+
 footer#top {
     bottom:20px !important;
 }
+
 footer#bottom{
     height:20px;
-    }
+}
     
 h3, h5 {
     font-family: 'Playfair Display', serif;
@@ -96,6 +100,8 @@ h3, h5 {
 footer#bottom a.white-text {
     padding-top: 0px;
 }
+
+/*table styling*/
 
 th, td {
     padding: 15px;
@@ -143,6 +149,10 @@ button {
 .table_outer { height: 30em; overflow: auto; }
 
 
+#success {
+    padding: 0;
+    margin: 0; 
+}
 
 /*dialog box styling*/
 
@@ -159,19 +169,6 @@ div.ui-dialog {
     top: 0;
 }
 
-#success {
-    padding: 0;
-    margin: 0; 
-}
-
-/*.ui-dialog .ui-dialog-content {
-    background: none repeat scroll 0 0 transparent;
-    border: 0 none;
-    overflow: auto;
-    position: relative;
-    padding: 0 !important;
-}*/
-
 .ui-widget-header {
     background: #333;
     border: 0;
@@ -180,15 +177,10 @@ div.ui-dialog {
     height: 35px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar {
-    padding: 0.1em .5em;
-    position: relative;
-    font-size: 1em;
-}*/
-
 .ui-button{
     float: right;
 }
+
 .ui-button:focus{
     background-color: #333;
 }

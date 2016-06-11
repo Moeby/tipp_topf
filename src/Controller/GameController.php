@@ -58,14 +58,14 @@ class GameController {
             $stmt->bindParam(':team_id2', $away_team_id);
             $stmt->bindParam(':date', $match['date']);
             $stmt->execute();
-            $result = $stmt->fetchAll();
-            
+            $result = $stmt->fetch();
+                      
             //create datetime obj
             $start_date = new \DateTime($match['date']); 
             $date_utc_current = new \DateTime(null, new \DateTimeZone("UTC"));
-            $date_finish = $start_date;
+            $date_finish = $date_utc_current;
             $date_finish->modify('+4 days');
-
+            
             //add as new game
             if (empty($result)){
                 $sql = "INSERT INTO `game`(`result_team1`, `result_team2`, `team_id1`, `team_id2`, `date`, `matchday`) VALUES (:result_team1, :result_team2, :team_id1, :team_id2, :date, :matchday)";
@@ -79,10 +79,12 @@ class GameController {
                 $stmt->bindParam(':matchday', $match['matchday']);
                 $stmt->execute();
 
-            } elseif (($start_date < $date_utc_current) && $start_date <  $date_finish){
+            } elseif (($start_date < $date_utc_current) && ($start_date <  $date_finish)){
+                
                 $sql="UPDATE `game` SET result_team1=:result_team1, result_team2=:result_team2 WHERE id=:id";
                 
                 $stmt = $db->prepare($sql);
+                $stmt->bindParam(':id', $result["id"]);
                 $stmt->bindParam(':result_team1', $match['result_home']);
                 $stmt->bindParam(':result_team2', $match['result_away']);
                 $stmt->execute();
