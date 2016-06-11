@@ -30,6 +30,12 @@ class HomeController {
         $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'TippTopf'));
     }
     
+    /**
+     * show contact page
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
     public function showContact(ServerRequestInterface $request, ResponseInterface $response) {
         $app = $this->app;      
         $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 

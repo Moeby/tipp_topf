@@ -5,7 +5,7 @@ namespace tippTopf\src\Controller;
 class HelperController {
 
     /**
-     * return database connection
+     * @return database connection
      */
     public static function getConnection() {
         $config = include(__DIR__ . '/../../configs/local.php');
@@ -100,6 +100,12 @@ class HelperController {
         return $result[0];
     }
     
+    /**
+     * get all users belonging to a group
+     * 
+     * @param Int $group_id
+     * @return array
+     */
     public function getGroupMembers($group_id){
         $members = array();
         $db = HelperController::getConnection();

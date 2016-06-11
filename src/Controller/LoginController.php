@@ -13,7 +13,7 @@ class LoginController {
     private $app;
 
     /**
-      /* set app variable
+     * set app variable
      * @param type $container
      */
     public function __construct($container) {
@@ -68,6 +68,12 @@ class LoginController {
         }
     }
 
+    /**
+     * log out 
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
     public function logout(ServerRequestInterface $request, ResponseInterface $response){
         session_start();
         
