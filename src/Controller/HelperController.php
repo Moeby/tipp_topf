@@ -181,5 +181,26 @@ class HelperController {
         }
         return $result;
     }
+    
+     /**
+     * get bet
+     * 
+     * @param Int $game_id
+     * @return array
+     */
+    public function getBet($game_id, $group_id){
+        $db = HelperController::getConnection();
+        $user_id = HelperController::getLoggedInUserId();
+        $sql = "SELECT * FROM mydb.bet WHERE bet.game_id=:game_id AND bet.user_has_group_group_id=:group_id AND bet.user_has_group_user_id = :user_id";
+        
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':game_id', $game_id);
+        $stmt->bindParam(':group_id', $group_id);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        
+        return $result;
+    }
 
 }

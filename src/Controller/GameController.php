@@ -195,4 +195,57 @@ class GameController {
         }
     }
     
+    /**
+     * handle data from js & add bet into db
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
+    public function addBet(ServerRequestInterface $request, ResponseInterface $response) {
+        $app = $this->app;
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
+        
+        $user_id = HelperController::getLoggedInUserId();
+        $group_id = $_POST["group_id"];
+        $bets = $_POST["data"][0];
+        $game_data = json_decode($_POST["data"][1], true);
+        
+        // get betting information into right format
+        $arr = explode('team=', $bets);
+        $bets = array_filter($arr);
+        $bets[1] = str_replace("&","", $bets[1]);
+        
+        $start_date = new \DateTime($game_data['date']); 
+        $date_utc_current = new \DateTime(null, new \DateTimeZone("UTC"));
+        
+        //check date again, only allow bet if current date smaller than game start
+        if ($date_utc_current < $start_date){
+            $db = HelperController::getConnection();
+            
+            $bet_exists = HelperController::getBet($game_data["id"], $group_id);
+
+            if (empty($bet_exists)){
+                $sql = "INSERT INTO `bet`(`result_team1`, `result_team2`, `game_id`, `user_has_group_user_id`, `user_has_group_group_id`) VALUES (:result_team1, :result_team2, :game_id, :user_id, :group_id)";
+                
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':result_team1', $bets[1]);
+                $stmt->bindParam(':result_team2', $bets[2]);
+                $stmt->bindParam(':game_id', $game_data["id"]);
+                $stmt->bindParam(':user_id', $user_id);
+                $stmt->bindParam(':group_id', $group_id);
+                $stmt->execute();
+            } else { 
+                $sql="UPDATE `bet` SET result_team1=:result_team1, result_team2=:result_team2 WHERE id=:id";
+                
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':id', $bet_exists["id"]);
+                $stmt->bindParam(':result_team1', $bets[1]);
+                $stmt->bindParam(':result_team2', $bets[2]);
+                $stmt->execute();
+            }
+        
+        }
+        
+        
+    }
+    
 }

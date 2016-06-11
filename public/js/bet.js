@@ -5,7 +5,6 @@ function betting(clicked_id, group_id) {;
     $.post("/showbet", {data: clicked_id})
         .done(function (data) {
             game = data;
-            console.log(data);
             showbettingwindow(game, group_id);
         });
 };
@@ -22,19 +21,18 @@ function showbettingwindow(game, group_id) {
             }
         });
 
+       // $(body).off("submit", "form");
         $('#dialog_form').submit(function (e) {
-            e.preventDefault();
+           // e.preventDefault();
             // Get all the forms elements and their values in one step
             var values = $(this).serialize();
             var bet = [values, game];
             $.post("/addbet", {data: bet, group_id: group_id})
                 .done(function (data) {
-                    alert(data); 
-                    $('#dialog-modal').dialog('close');
-
+                    alert(data);
+                    $('#dialog-modal').dialog('destroy');
+                    $('#dialog_form').dialog('close').dialog('destroy');
                 });
-//            alert(bet); 
-//            $('#dialog-modal').dialog('close');
         });
     } else {
         alert('Game is already over / has already started');

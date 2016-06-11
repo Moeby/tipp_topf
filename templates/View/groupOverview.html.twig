@@ -44,4 +44,10 @@
             {% endif %}
         {% endblock %}
     </div>
+        {#redirect to group's page#}
+        <script type = 'text/javascript'>
+            if ({{ redirect }} !== null){
+                $("#{{ redirect }}").click();
+            }
+        </script>
 {% endblock %}

@@ -175,7 +175,13 @@ class GroupController {
             $result = $stmt->fetchAll();
 
             $groups = array();
-
+            
+            //check if redirect to specific group needed
+            $redirect = null;
+            if (!empty($_GET)){
+                $redirect = $_GET["submitted"];
+            }
+            
             // fill group array with necessary inf
             foreach ($result as $rel) {
                 $group_obj = HelperController::getGroup($rel["group_id"]);
@@ -186,7 +192,7 @@ class GroupController {
                 $groups[$last_key]["id"] = $group_obj["id"];
                 $groups[$last_key]["owner"] = $user["username"];
             }
-            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Groups', 'page_title' => 'Groups Overview', 'groups' => $groups));
+            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Groups', 'page_title' => 'Groups Overview', 'groups' => $groups, 'redirect' => $redirect));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restriced \r\n Please Log in to view this page"));
         }
@@ -215,14 +221,14 @@ class GroupController {
             $stmt->bindParam(':group_id', $group_id);
             $stmt->execute();
             $result = $stmt->fetchAll();
-            
+             
             if (!empty($result)){
                 $games = HelperController::getGames();
                 $members = HelperController::getGroupMembers($group_id);
                 $member_count = count($members);
                 $group = HelperController::getGroup($group_id); 
                 $owner = HelperController::getUser($group["owner"])["username"];
-                
+
                 $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count, 'games' => $games));
             } else {
                 $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
