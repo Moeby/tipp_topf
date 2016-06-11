@@ -162,4 +162,35 @@ class GameController {
         }
     }
     
+    /**
+     * add Bet
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
+    public function showBet(ServerRequestInterface $request, ResponseInterface $response) {
+        $app = $this->app;
+        $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);
+        // search corresponding game
+        $db = HelperController::getConnection();
+        
+        $sql = "SELECT game.id, game.team_id1, game.team_id2, game.date FROM mydb.game WHERE game.id = :game_id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':game_id', $_POST["data"]);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        //check date 
+        $start_date = new \DateTime($result['date']); 
+        $date_utc_current = new \DateTime(null, new \DateTimeZone("UTC"));
+        
+        if ($start_date > $date_utc_current){
+            $result["team1_name"] = HelperController::getTeamName($result["team_id1"]);
+            $result["team2_name"] = HelperController::getTeamName($result["team_id2"]);
+            
+            //echo returns the string to the js, return doesn't
+            echo(json_encode( $result )); exit;
+        }
+    }
+    
 }
