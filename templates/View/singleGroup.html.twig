@@ -49,11 +49,12 @@
                 </table>
             </div>
             <div id="dialog-modal" title="Place Your Bet" style="display: none;">
-                <form id ="dialog_form" >
+                <form id ="dialog_form" action="/overview">
                     <label id="team1">Team1:</label>
-                    <input id="name" name="team" type="number" min="0">
+                    <input id="result" name="team" type="number" min="0">
                     <label id="team2">Team2:</label>
-                    <input id="email" name="team" type="number" min="0">
+                    <input id="result" name="team" type="number" min="0">
+                    <input id="submitted" name="submitted" type="hidden" value={{ group.id }}>
                     <input id="submit" type="submit" value="Submit">
                 </form>
             </div>
