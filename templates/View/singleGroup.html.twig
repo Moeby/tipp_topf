@@ -49,7 +49,30 @@
                             </tr>
                         {% endfor %}
                 </table>
-            </div>
+            </div> 
+            </br>   
+            <div class="table_outer">
+                <table id="members" class="group-matches active highlight">
+                    <thead>
+                        <tr>
+                            <th data-field="rank">Rank</th>
+                            <th data-field="name">Username</th>
+                            <th data-field="points">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set rank = 1 %}
+                       
+                        {% for member in members %}
+                            <tr class="match">
+                                <td class="rank"> {{ rank }} </td>
+                                <td class="username">{{ member.username }}</td>
+                                <td class="points"> {{ member.points }} </td>
+                            </tr>
+                            {% set rank = rank + 1 %}
+                        {% endfor %}
+                </table>
+            </div>     
             <div id="dialog-modal" title="Place Your Bet" style="display: none;">
                 <form id ="dialog_form" action="/overview">
                     <label id="team1">Team1:</label>

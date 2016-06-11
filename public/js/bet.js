@@ -21,9 +21,7 @@ function showbettingwindow(game, group_id) {
             }
         });
 
-       // $(body).off("submit", "form");
         $('#dialog_form').submit(function (e) {
-           // e.preventDefault();
             // Get all the forms elements and their values in one step
             var values = $(this).serialize();
             var bet = [values, game];

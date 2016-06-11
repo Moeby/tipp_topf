@@ -247,7 +247,7 @@ class GroupController {
                     }
                 }
                 
-                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count, 'games' => $games));
+                $app->getContainer()['view']->render($response, 'singleGroup.html.twig', array('title' => 'Group', 'page_title' => "Group Overview", 'group' => $group, 'owner' => $owner, 'nbr' => $member_count, 'games' => $games, 'members' => $members));
             } else {
                 $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Restricted Access', 'page_title' => "Access Restricted"));
             }
@@ -257,8 +257,45 @@ class GroupController {
         }
     }
     
-    function sortByPoints($a, $b) {
+    /**
+     * sort array
+     */
+    public function sortByPoints($a, $b) {
         return $a['points'] - $b['points'];
+    }
+    
+    /**
+     * join group & delete invitation
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     */
+    public function joinGroup(ServerRequestInterface $request, ResponseInterface $response) {
+        $db = HelperController::getConnection();
+        
+        $user_id = $_POST["user_id"];
+        $inv_id = $_POST["inv_id"];
+        $accepted = $_POST["accepted"];
+        $email = $_POST["user_email"];
+        $group_id = $_POST["group_id"];
+        
+        
+        if ($accepted === "accept=yes"){
+            //insert user into group
+            $sql = "INSERT INTO `user_has_group`(`user_id`, `group_id`) VALUES (:user_id, :group_id)";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':group_id', $group_id);
+            $stmt->execute();
+        }
+        
+        $sql = "DELETE FROM mydb.invitation WHERE invitation.id = :id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $inv_id);
+        $stmt->execute();
+        
     }
 
 }

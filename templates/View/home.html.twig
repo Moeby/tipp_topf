@@ -14,4 +14,37 @@
         {% block main %}
         {% endblock %}
     </div>
+
+    <div id="dialog-modal" title="Invitation" style="display: none;">
+        <form id ="dialog_form" action="#">
+            You have been invited to join the group "{{ invitations.groupname }}" </br></br>
+            Do you want to join this group? 
+            <input type="radio" name="accept" value="yes" checked> Yes
+            <input type="radio" name="accept" value="no"> No<br>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script type = 'text/javascript'>
+        if ({{ invitations }} !== null) {
+            $("#dialog-modal").dialog({
+                width: 250,
+                height: 200,
+                open: function (event, ui)
+                {
+                    dialogClass:'dialog_style1';
+                }
+            });
+
+            $('#dialog_form').submit(function (e) {
+                var values = $(this).serialize();
+
+                $.post("/joingroup", {user_id: "{{ user_id }}", inv_id: "{{ invitations.id }}", group_id: "{{ invitations.group_id }}", accepted: values, user_email: "{{ invitations.email }}",})
+                    .done(function (data) {
+                        $('#dialog-modal').dialog('destroy');
+                        $('#dialog_form').dialog('close').dialog('destroy');
+                    });
+            });
+        }
+    </script>
 {% endblock %}

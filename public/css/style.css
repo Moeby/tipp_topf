@@ -205,3 +205,10 @@ div.ui-dialog , #dialog_form{
     display: inline-block;
     font-size: 14px;
 }
+
+[type="radio"], [type="radio"]:checked{
+    opacity: 100 !important;
+    left: 0px !important;
+    position: static !important;
+    display: inline;
+}

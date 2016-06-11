@@ -19,6 +19,7 @@ $app->post('/signup', 'SignUpController:signUp');
 $app->post('/results', 'GameController:getResults');
 $app->post('/showbet', 'GameController:showBet');
 $app->post('/addbet', 'GameController:addBet');
+$app->post('/joingroup', 'GroupController:joinGroup');
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);
