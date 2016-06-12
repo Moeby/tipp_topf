@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Playfair+Display);
 
-/*general styling*/
+/*general styling & header*/
 
 header {
     margin: 0;
@@ -37,7 +37,7 @@ a:link, a:visited {
 
 a:hover, a:active > .overlay{
     background-color:#000;
-    opacity:0.2;
+    opacity:0.2;   
 }
 body {
     margin-top: 120px;
@@ -48,8 +48,8 @@ body {
 }
 
 .description {
-    border-bottom:  1px solid #999;
-    border-top:  1px solid #999;
+    border-bottom:  1px solid maroon;
+    border-top:  1px solid maroon;
     padding-bottom: 10px;
 }
 
