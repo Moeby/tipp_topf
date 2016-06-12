@@ -174,7 +174,7 @@ button {
     table tr {
         margin-bottom: 10px;
         display: block;
-        border-bottom: 2px solid #ddd;
+        border-bottom: 4px solid #ddd;
     }
 
     table td {
@@ -194,6 +194,10 @@ button {
         text-transform: uppercase;
         font-weight: bold;
     }
+    
+    button {
+        padding: 0px 10px !important;
+    }       
 }
 
 /*dialog box styling*/
