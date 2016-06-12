@@ -1,50 +1,99 @@
-{% extends "base.html.twig" %}
+<!DOCTYPE html>
+<html>
+    <div id="whole">
+        <head>
+            {% block head %}
+                <meta charset="UTF-8"/>
+                <title>{% block title %}{% endblock %} - TippTopf</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-{% block title %}
-    {{ title }}
-{% endblock %} 
+                <link rel="stylesheet" type="text/css" href="css/materialize.min.css"  media="screen,projection"/>
+                <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-{% block head %}
-    {{ parent() }}
-{% endblock %}
+                <script src="lib/jquery-2.1.4.min.js"></script>
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+                <script src="js/materialize.min.js"></script>
+            {% endblock %}
+        </head>
+        <header id='header'>
+            {% block header %} 
+                <nav id='nav'>
+                    <ul>
+                        <li><a href="/"><img src="files/tipptopf.png" alt="Logo"></a></li>
+                        <li><a href="/groups">Add Group</a></li>
+                        <li><a href="/overview">Overview</a></li>
+                    </ul>
+                    {% if  session is defined and session.loggedin %}
+                        <ul id="usermgmt">
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </nav>
+                {% else %}
+                    <ul id="usermgmt">
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/login">Login</a></li>
+                    </ul>
+                    </nav>
+                {% endif %}
+            {% endblock %}
+        </header>
+        <body id="picture">
+            <div id="content">
+                {% block content %}
+                    <div class="section no-pad-bot" id="index-banner">
+                        <div class="container" id="content_border">
+                            <h2 class="header center">{{ page_title |nl2br |upper}}</h2>
+                            <div class="row center">
+                                <h5 class="header col s12 light">Create a new group:</h5>
+                            </div>
+                            <div class="row center">
+                                <a href="/newgroup" id="signup-button" class="btn-large waves-effect waves-light">Add Group</a>
+                            </div>
+                            <div class="row center">
+                                <h5 class="header col s12 light">Go to the group overview:</h5>
+                            </div>
+                            <div class="row center">
+                                <a href="/overview" id="signup-button" class="btn-large waves-effect waves-light">Group Overview</a>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
 
-{% block content %}
-    {{ parent() }}
-    <div class="container" id="contentPart-home">
-        {% block main %}
-        {% endblock %}
+                <script type = 'text/javascript'>
+                    if ({{ invitations }} !== null) {
+                        $("#dialog-modal").dialog({
+                            width: 250,
+                            height: 200,
+                            open: function (event, ui)
+                            {
+                                dialogClass:'dialog_style1';
+                            }
+                        });
+
+                        $('#dialog_form').submit(function (e) {
+                            var values = $(this).serialize();
+
+                            $.post("/joingroup", {user_id: "{{ user_id }}", inv_id: "{{ invitations.id }}", group_id: "{{ invitations.group_id }}", accepted: values, user_email: "{{ invitations.email }}", })
+                                    .done(function (data) {
+                                        $('#dialog-modal').dialog('destroy');
+                                        $('#dialog_form').dialog('close').dialog('destroy');
+                                    });
+                        });
+                    }
+                </script>
+            {% endblock %}
     </div>
+    <div id="footer">
+        {% block footer %}
+            <footer id="top">
+                <a class="white-text" id="a-top" href="#">tipptopf@massiveimpact.ch </a>
+            </footer>
+            <footer id="bottom">
+                <a class="white-text" href="#">Tatyana & Elena<p>
+                        </footer>
 
-    <div id="dialog-modal" title="Invitation" style="display: none;">
-        <form id ="dialog_form" action="#">
-            You have been invited to join the group "{{ invitations.groupname }}" </br></br>
-            Do you want to join this group? 
-            <input type="radio" name="accept" value="yes" checked> Yes
-            <input type="radio" name="accept" value="no"> No<br>
-            <input id="submit" type="submit" value="Submit">
-        </form>
-    </div>
-
-    <script type = 'text/javascript'>
-        if ({{ invitations }} !== null) {
-            $("#dialog-modal").dialog({
-                width: 250,
-                height: 200,
-                open: function (event, ui)
-                {
-                    dialogClass:'dialog_style1';
-                }
-            });
-
-            $('#dialog_form').submit(function (e) {
-                var values = $(this).serialize();
-
-                $.post("/joingroup", {user_id: "{{ user_id }}", inv_id: "{{ invitations.id }}", group_id: "{{ invitations.group_id }}", accepted: values, user_email: "{{ invitations.email }}",})
-                    .done(function (data) {
-                        $('#dialog-modal').dialog('destroy');
-                        $('#dialog_form').dialog('close').dialog('destroy');
-                    });
-            });
-        }
-    </script>
-{% endblock %}
+                    {% endblock %}
+                    </div>
+                    </body>
+                    </div>
+                    </html>

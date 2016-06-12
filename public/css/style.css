@@ -52,6 +52,18 @@ body {
     border-top:  1px solid maroon;
     padding-bottom: 10px;
 }
+#signup-button {
+    background-color: #2c3e50;
+    color: #f2f2f2;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    margin-left: auto;
+    margin-right: auto;
+    outline: 1px solid #cccccc;
+    outline-offset: -7px;
+    text-transform: uppercase;
+    transition: all 0.2s ease 0s;
+}
 
 /*footer styling*/
 
@@ -152,12 +164,24 @@ button {
     font-size: 14px;
 }
 
-body#picture{
+body#picture, body#picture_2{
     background-image: url("https://static.pexels.com/photos/8590/pexels-photo.jpg");
     background-size: 100%;
 }
 body#picture h2{
-    text-shadow: 3px 3px 3px black;;
+    background-color: #333;
+    color: white;
+}
+body#picture h5, body#picture_2 h5{
+    text-shadow: 2px 2px 3px white;
+}
+
+body#picture_2 h2{
+    text-shadow: 2px 2px 3px black;
+}
+
+#content_border {
+    border: 5px solid #333;;
 }
 
 .table_outer { height: 30em; overflow: auto; }

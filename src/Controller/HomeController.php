@@ -49,9 +49,9 @@ class HomeController {
                     $invitations[$key]['groupname'] = $group["name"];
                 }   
             }
-            $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'Home', 'page_title' => 'TippTopf', 'invitations' => $invitations[0], 'user_id' => $user_id));
+            $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'TippTopf', 'page_title' => 'TippTopf', 'invitations' => $invitations[0], 'user_id' => $user_id));
         } else {
-            $app->getContainer()['view']->render($response, 'HomeLoggedOut.html.twig', array('title' => 'Home', 'page_title' => ''));
+            $app->getContainer()['view']->render($response, 'HomeLoggedOut.html.twig', array('title' => 'TippTopf', 'page_title' => 'Home'));
         }
     }
     
