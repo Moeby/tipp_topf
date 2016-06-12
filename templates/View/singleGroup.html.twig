@@ -28,10 +28,7 @@
                     <thead>
                         <tr>
                             <th data-field="date">Date</th>
-                            <th data-field="homeTeamName"></th>
-                            <th class="versus"></th>
-                            <th data-field="awayTeamName"></th>
-                            <th data-field="result"></th>
+                            <th data-field="game">Game</th>
                             <th data-field="status">Status</th>
                             <th data-field="current">Bet</th>
                             <th data-field="bet">Add Bet</th>
@@ -40,13 +37,11 @@
                     <tbody>
                         {% for game in games %}
                             <tr class="match">
-                                <td class="date">{{ game.date }}</td>
-                                <td class="homeTeamName"> {{ game.name_1 }} </td>
-                                <td class="versus"> : </td>
-                                <td class="goalsAwayTeam">{{ game.name_2 }} <td>
-                                <td class="results"><img src="{{ game.flag_1 }}" alt="team_flag" width="30"> ({{ game.result_team1 }}) : ({{ game.result_team2 }}) <img src="{{ game.flag_2 }}" alt="team_flag" width="30"></td>
-                                <td class="current_bet"> {{ game.current_bet }} </td>
-                                <td><button id="{{ game.id }}" onClick="betting(this.id, {{ group.id }})">Add</button></td>
+                                <td data-label="Date" class="date">{{ game.date }}</td>
+                                <td data-label="Game" class="game"> {{ game.name_1 }}  &nbsp;&nbsp;:  &nbsp;&nbsp;{{ game.name_2 }}</td>
+                                <td data-label="Status" class="results"><img src="{{ game.flag_1 }}" alt="team_flag" width="30"> ({{ game.result_team1 }}) : ({{ game.result_team2 }}) <img src="{{ game.flag_2 }}" alt="team_flag" width="30"></td>
+                                <td data-label="Bet" class="current_bet"> {{ game.current_bet }} </td>
+                                <td data-label="Add Bet"><button id="{{ game.id }}" onClick="betting(this.id, {{ group.id }})">Add</button></td>
                             </tr>
                         {% endfor %}
                 </table>
@@ -66,9 +61,9 @@
                        
                         {% for member in members %}
                             <tr class="match">
-                                <td class="rank"> {{ rank }} </td>
-                                <td class="username">{{ member.username }}</td>
-                                <td class="points"> {{ member.points }} </td>
+                                <td data-label="Rank" class="rank"> {{ rank }} </td>
+                                <td data-label="Username" class="username">{{ member.username }}</td>
+                                <td data-label="Points" class="points"> {{ member.points }} </td>
                             </tr>
                             {% set rank = rank + 1 %}
                         {% endfor %}

@@ -25,9 +25,9 @@
                      <tbody>
                         {% for group in groups %}
                            <tr>
-                               <td>{{ group.name|e }}</td>
-                               <td>{{ group.owner|e }}</td>
-                               <td>
+                               <td data-label="Name">{{ group.name|e }}</td>
+                               <td data-label="Owner">{{ group.owner|e }}</td>
+                               <td data-label="Go To">
                                    <form action="/showgroup" method="POST">
                                        <input id="group_id" type="hidden" name="id" value="{{group.id}}">
                                        <button id="{{group.id}}" type="submit" ><img src="files/open.png" height="26px"/></button></td>
