@@ -1,13 +1,72 @@
-{% extends "base.html.twig" %}
+<!DOCTYPE html>
+<html>
+    <div id="whole">
+        <head>
+            {% block head %}
+                <meta charset="UTF-8"/>
+                <title>{% block title %}{% endblock %} - TippTopf</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-{% block title %}
-    {{ title }}
-{% endblock %} 
+                <link rel="stylesheet" type="text/css" href="css/materialize.min.css"  media="screen,projection"/>
+                <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-{% block head %}
-    {{ parent() }}
-{% endblock %}
+                <script src="lib/jquery-2.1.4.min.js"></script>
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+                <script src="js/materialize.min.js"></script>
+            {% endblock %}
+        </head>
+        <header id='header'>
+            {% block header %} 
+                <nav id='nav'>
+                    <ul>
+                        <li><a href="/"><img src="files/tipptopf.png" alt="Logo"></a></li>
+                        <li><a href="/groups">Add Group</a></li>
+                        <li><a href="/overview">Overview</a></li>
+                    </ul>
+                    {% if  session is defined and session.loggedin %}
+                        <ul id="usermgmt">
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </nav>
+                {% else %}
+                    <ul id="usermgmt">
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/login">Login</a></li>
+                    </ul>
+                    </nav>
+                {% endif %}
+            {% endblock %}
+        </header>
+        <body id="picture">
+            <div id="content">
+                {% block content %}
+                    <div class="section no-pad-bot" id="index-banner">
+                        <div class="container">
+                            <br><br>
+                            <h2 class="header center blue-text">European Championship France 2016 - Betting game</h2>
+                            <div class="row center">
+                                <h5 class="header col s12 light">Start now!</h5>
+                            </div>
+                            <div class="row center">
+                                <a href="/signup" id="signup-button" class="btn-large waves-effect waves-light green">Sign up</a>
+                            </div>
+                            <br><br>
 
-{% block content %}
-    {{ parent() }}
-{% endblock %}
+                        </div>
+                    </div>
+
+                {% endblock %}
+                            <div id="footer">
+                {% block footer %}
+                    <footer id="top">
+                        <a class="white-text" id="a-top" href="#">tipptopf@massiveimpact.ch </a>
+                    </footer>
+                    <footer id="bottom">
+                        <a class="white-text" href="#">Tatyana & Elena<p>
+                    </footer>
+
+                {% endblock %}
+            </div>
+        </body>
+    </div>
+</html>

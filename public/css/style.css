@@ -152,6 +152,14 @@ button {
     font-size: 14px;
 }
 
+body#picture{
+    background-image: url("https://static.pexels.com/photos/8590/pexels-photo.jpg");
+    background-size: 100%;
+}
+body#picture h2{
+    text-shadow: 3px 3px 3px black;;
+}
+
 .table_outer { height: 30em; overflow: auto; }
 
 
