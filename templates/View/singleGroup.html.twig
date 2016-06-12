@@ -41,13 +41,20 @@
                                 <td data-label="Game" class="game"> {{ game.name_1 }}  &nbsp;&nbsp;:  &nbsp;&nbsp;{{ game.name_2 }}</td>
                                 <td data-label="Status" class="results"><img src="{{ game.flag_1 }}" alt="team_flag" width="30"> ({{ game.result_team1 }}) : ({{ game.result_team2 }}) <img src="{{ game.flag_2 }}" alt="team_flag" width="30"></td>
                                 <td data-label="Bet" class="current_bet"> {{ game.current_bet }} </td>
-                                <td data-label="Add Bet"><button id="{{ game.id }}" onClick="betting(this.id, {{ group.id }})">Add</button></td>
+                                {% if game.closed %}
+                                    <td data-label="Add Bet"><i>Closed</i></td>
+                                {% else %}
+                                    <td data-label="Add Bet"><button id="{{ game.id }}" onClick="betting(this.id, {{ group.id }})">Add</button></td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                 </table>
             </div> 
             </br>   
             <div class="table_outer">
+                <div class="tabinfo">
+                    <h5>Group Members</h5>
+                </div>
                 <table id="members" class="group-matches active highlight">
                     <thead>
                         <tr>

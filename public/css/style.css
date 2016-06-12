@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Playfair+Display);
 
+/*general styling*/
+
 header {
     margin: 0;
     padding: 0;
@@ -43,6 +45,12 @@ body {
 
 #nav {
     background-color: maroon;
+}
+
+.description {
+    border-bottom:  1px solid #999;
+    border-top:  1px solid #999;
+    padding-bottom: 10px;
 }
 
 /*footer styling*/

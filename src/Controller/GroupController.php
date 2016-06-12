@@ -127,7 +127,7 @@ class GroupController {
 //        
 //        $body = "Hi there, \r\n\r\n"
 //              . "$user_mail sents you an invitation to join his/her football betting group on tipptopf.ch. \r\n"
-//              . "Signing up is free and it's all about having a fun competition without betting any money on the outcome.\r\n"
+//              . "Signing up is free and it's all about having a fun competition without having to bet any money on the outcome.\r\n"
 //              . "If you want to join the group please follow the link below and use the email address we sent this email to during the sign up process, "
 //              . "you'll be promted to join the group after your first login."
 //              . "\r\n\r\n"
@@ -229,14 +229,14 @@ class GroupController {
                 $group = HelperController::getGroup($group_id); 
                 $owner = HelperController::getUser($group["owner"])["username"];
                 
+                // calculate points for members
                 foreach ($members as $key => $member){
                     $points = HelperController::calculatePoints($group_id, $member["id"]);
                     $members[$key]['points'] = $points;
                     usort($members, 'sortByPoints');
                 }
                 
-                
-                //add current bets to games array
+                //add current bets and information if betting is still possible to games array 
                 foreach ($games as $key => $game){
                     $bet = HelperController::getBet($game["id"], $group_id);
                     if (!empty($bet)){
@@ -244,6 +244,15 @@ class GroupController {
                         $games[$key]['current_bet'] = $current_bet;
                     } else {
                         $games[$key]['current_bet'] = "None";
+                    }
+                    
+                    $start_date = new \DateTime($game['date']); 
+                    $date_utc_current = new \DateTime(null, new \DateTimeZone("UTC"));
+                    
+                    if ($start_date < $date_utc_current){
+                        $games[$key]['closed'] = true;
+                    } else {
+                        $games[$key]['closed'] = false;
                     }
                 }
                 
