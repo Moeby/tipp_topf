@@ -1,7 +1,7 @@
 <?php
     use tippTopf\src\Controller\HomeController;
     use tippTopf\src\Controller\SignUpController;
-    spl_autoload_extensions(".php"); // comma-separated list
+    spl_autoload_extensions(".php"); 
     spl_autoload_register();
     
 $container = $app->getContainer();
@@ -19,6 +19,11 @@ $app->post('/results', 'GameController:getResults');
 $app->post('/showbet', 'GameController:showBet');
 $app->post('/addbet', 'GameController:addBet');
 $app->post('/joingroup', 'GroupController:joinGroup');
+
+$container['GroupController'] = function ($container)  use ($app) {
+    $x = new \tippTopf\src\Controller\GroupController($app);
+    return $x;
+};
 
 $container['HomeController'] = function ($container)  use ($app) {
     $x = new \tippTopf\src\Controller\HomeController($app);

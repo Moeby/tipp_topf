@@ -83,7 +83,7 @@ class GroupController {
             $stmt->bindParam(':group_id', $group_id);
             $stmt->execute();
 
-            $app->getContainer()['view']->render($response, 'groupOverview.html.twig', array('title' => 'Group Overview', 'page_title' => 'Groups Overview'));
+            $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'Group Added', 'page_title' => 'Group has been added'));
         } else {
             $app->getContainer()['view']->render($response, 'error.html.twig', array('title' => 'ERROR', 'page_title' => ">Group couldn't be created \r\n Please use a different name, the one you tried already exists"));
         }
