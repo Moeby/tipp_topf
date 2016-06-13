@@ -5,15 +5,12 @@ namespace tippTopf\src\Controller;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * 
- */
 class GroupController {
 
     private $app;
 
     /**
-      /* set app variable
+     * set app variable
      * @param type $container
      */
     public function __construct($container) {
@@ -113,7 +110,7 @@ class GroupController {
             $stmt->bindParam(':email', $invitation);
             $stmt->execute();
 
-//            $this->sendInvitation($invitation);
+            $this->sendInvitation($invitation);
         }
     }
 
@@ -121,33 +118,33 @@ class GroupController {
      * sent invitation mail
      * @param string $email
      */
-//    private function sendInvitation($email) {
-//        $config = include(__DIR__ . '/../../configs/local.php');
-//        $user_mail = HelperController::getLoggedInUserMail();
-//        
-//        $body = "Hi there, \r\n\r\n"
-//              . "$user_mail sents you an invitation to join his/her football betting group on tipptopf.ch. \r\n"
-//              . "Signing up is free and it's all about having a fun competition without having to bet any money on the outcome.\r\n"
-//              . "If you want to join the group please follow the link below and use the email address we sent this email to during the sign up process, "
-//              . "you'll be promted to join the group after your first login."
-//              . "\r\n\r\n"
-//              . "www.tipptopf.ch/signup \r\n\r\n"
-//              . "Kind regards, \r\n"
-//              . "TippTopf Support";
-//        
-//        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
-//                ->setUsername($config['mail']['user'])
-//                ->setPassword($config['mail']['password']);
-//
-//        $mailer = \Swift_Mailer::newInstance($transport);
-//
-//        $message = \Swift_Message::newInstance("TippTopf: $user_mail has invited you to join his football betting group!")
-//                ->setFrom(array('support@tipptopf.com' => 'TippTopf'))
-//                ->setTo(array($email))
-//                ->setBody($body);
-//
-//        $result = $mailer->send($message);
-//    }
+    private function sendInvitation($email) {
+        $config = include(__DIR__ . '/../../configs/local.php');
+        $user_mail = HelperController::getLoggedInUserMail();
+        
+        $body = "Hi there, \r\n\r\n"
+              . "$user_mail sents you an invitation to join his/her football betting group on tipptopf.ch. \r\n"
+              . "Signing up is free and it's all about having a fun competition without having to bet any money on the outcome.\r\n"
+              . "If you want to join the group please follow the link below and use the email address we sent this email to during the sign up process, "
+              . "you'll be promted to join the group after your first login."
+              . "\r\n\r\n"
+              . "www.tipptopf.ch/signup \r\n\r\n"
+              . "Kind regards, \r\n"
+              . "TippTopf Support";
+        
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+                ->setUsername($config['mail']['user'])
+                ->setPassword($config['mail']['password']);
+
+        $mailer = \Swift_Mailer::newInstance($transport);
+
+        $message = \Swift_Message::newInstance("TippTopf: $user_mail has invited you to join his football betting group!")
+                ->setFrom(array('tipptopf@massiveimpact.com' => 'TippTopf'))
+                ->setTo(array($email))
+                ->setBody($body);
+
+        $result = $mailer->send($message);
+    }
 
 
     /**

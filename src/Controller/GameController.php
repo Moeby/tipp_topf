@@ -5,15 +5,12 @@ namespace tippTopf\src\Controller;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * 
- */
 class GameController {
 
     private $app;
 
     /**
-      /* set app variable
+     * set app variable
      * @param type $container
      */
     public function __construct($container) {

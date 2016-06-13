@@ -5,9 +5,6 @@ namespace tippTopf\src\Controller;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * 
- */
 class LoginController {
 
     private $app;
@@ -58,10 +55,9 @@ class LoginController {
                     $_SESSION['loggedin'] = true;
                     $_SESSION['username'] = $username;
                  
-                $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION); 
-                    
+                $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);   
             }
-            $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'TippTopf', 'page_title' => 'Home'));
+            $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login - Wrong Password(Try Again)'));
 
         } else {
             $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login - Wrong Username(Try Again)'));
