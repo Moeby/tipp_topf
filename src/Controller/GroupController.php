@@ -123,7 +123,7 @@ class GroupController {
         $user_mail = HelperController::getLoggedInUserMail();
         
         $body = "Hi there, \r\n\r\n"
-              . "$user_mail sents you an invitation to join his/her football betting group on massiveimpact.ch. \r\n"
+              . "$user_mail sents you an invitation to join his/her football betting group on tipptopf.madoerin-der-erste.ch . \r\n"
               . "Signing up is free and it's all about having a fun competition without having to bet any money on the outcome.\r\n"
               . "If you want to join the group please follow the link below and use the email address we sent this email to during the sign up process, "
               . "you'll be promted to join the group after your first login."
@@ -132,7 +132,7 @@ class GroupController {
               . "Kind regards, \r\n"
               . "TippTopf Support";
         
-        $transport = \Swift_SmtpTransport::newInstance('massiveimpact.ch', 465, "ssl")
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
                 ->setUsername($config['mail']['user'])
                 ->setPassword($config['mail']['password']);
 

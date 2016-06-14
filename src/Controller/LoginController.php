@@ -56,8 +56,10 @@ class LoginController {
                     $_SESSION['username'] = $username;
                  
                 $this->app->getContainer()['view']->getEnvironment()->addGlobal("session", $_SESSION);   
+                $app->getContainer()['view']->render($response, 'home.html.twig', array('title' => 'TippTopf', 'page_title' => 'TippTopf'));
+            } else {
+                $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login - Wrong Password(Try Again)'));
             }
-            $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login - Wrong Password(Try Again)'));
 
         } else {
             $app->getContainer()['view']->render($response, 'login.html.twig', array('title' => 'Login', 'page_title' => 'Login - Wrong Username(Try Again)'));
